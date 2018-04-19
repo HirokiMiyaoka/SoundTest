@@ -44,9 +44,29 @@ function TestHowler( id )
 		sound[ count ].play();
 	}, false );
 }
+function TestDiva( id )
+{
+	var sound = new Diva();
+	var count = 0;
+	document.getElementById( id + '_start' ).addEventListener( 'click', () =>
+	{
+console.log('start');
+		if ( sound.count() <= 0 )
+		{
+			files.forEach( ( file ) =>
+			{
+				sound.add( { file: file, loop: true } );
+			} );
+		}
+		sound.play( files[ count ] );
+	}, false );
+	document.getElementById( id + '_stop' ).addEventListener( 'click', () => { sound.stop(); }, false );
+	document.getElementById( id + '_next' ).addEventListener( 'click', () => { sound.nextPlay( files[ ( count + 1 ) % files.length ] ); }, false );
+}
 document.addEventListener( 'DOMContentLoaded', () =>
 {
-	TestHowler('howler');
+	TestHowler( 'howler' );
+	TestDiva( 'diva' );
 } );
 	</script>
 </head>
@@ -56,6 +76,12 @@ document.addEventListener( 'DOMContentLoaded', () =>
 		<button id="howler_start">Start</button>
 		<button id="howler_stop">Stop</button>
 		<button id="howler_next">Next</button>
+	</section>
+	<section>
+		<h2>Diva</h2>
+		<button id="diva_start">Start</button>
+		<button id="diva_stop">Stop</button>
+		<button id="diva_next">Next</button>
 	</section>
 </body>
 </html>
