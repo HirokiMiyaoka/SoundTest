@@ -1,6 +1,7 @@
 class Diva
 {
 	private files: { [ key: string ]: HTMLAudioElement };
+
 	constructor()
 	{
 		this.files = {};
@@ -12,13 +13,11 @@ class Diva
 		{
 			if ( typeof file === 'string' )
 			{
-				this.files[ file ] = new Audio();
-				this.files[ file ].load();
+				this.files[ file ] = new Audio( file );
 			} else
 			{
-				this.files[ file.file ] = new Audio();
+				this.files[ file.file ] = new Audio( file.file );
 				this.files[ file.file ].loop = !!file.loop;
-				this.files[ file.file ].load();
 			}
 		} );
 		return this;
@@ -26,9 +25,27 @@ class Diva
 
 	public play( file: string )
 	{
-console.log('play',file);
 		if ( !this.files[ file ] ) { return this; }
 		this.files[ file ].play();
+		return this;
+	}
+
+	public pause( file?: string )
+	{
+		if ( file )
+		{
+			if ( !this.files[ file ] ) { return this; }
+			this.files[ file ].pause();
+			this.files[ file ].currentTime = 0;
+			return this;
+		}
+
+		Object.keys( this.files ).forEach( ( key ) =>
+		{
+			this.files[ key ].pause();
+			this.files[ key ].currentTime = 0;
+		} );
+
 		return this;
 	}
 
@@ -38,19 +55,23 @@ console.log('play',file);
 		{
 			if ( !this.files[ file ] ) { return this; }
 			this.files[ file ].pause();
+			this.files[ file ].currentTime = 0;
 			return this;
 		}
 
 		Object.keys( this.files ).forEach( ( key ) =>
 		{
 			this.files[ key ].pause();
+			this.files[ key ].currentTime = 0;
 		} );
 
+		return this;
 	}
 
-	public nextPlay( file : string )
+	public next( file : string )
 	{
-		if ( !this.files[ file ] ) { return; }
+		if ( !this.files[ file ] ) { return this; }
+
 		Object.keys( this.files ).forEach( ( key ) =>
 		{
 			if ( key !== file )
@@ -58,9 +79,11 @@ console.log('play',file);
 				this.files[ key ].pause();
 				return;
 			}
-			if ( !this.files[ key ].ended ) { return; }
-			this.files[ key ].play();
 		} );
+
+		this.files[ file ].play();
+
+		return this;
 	}
 
 	public get( file: string ) { return this.files[ file ]; }

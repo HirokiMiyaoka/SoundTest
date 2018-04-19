@@ -61,7 +61,10 @@ console.log('start');
 		sound.play( files[ count ] );
 	}, false );
 	document.getElementById( id + '_stop' ).addEventListener( 'click', () => { sound.stop(); }, false );
-	document.getElementById( id + '_next' ).addEventListener( 'click', () => { sound.nextPlay( files[ ( count + 1 ) % files.length ] ); }, false );
+	document.getElementById( id + '_next' ).addEventListener( 'click', () => {
+		count = ( count + 1 ) % files.length;
+		sound.next( files[ count ] );
+	}, false );
 }
 document.addEventListener( 'DOMContentLoaded', () =>
 {
