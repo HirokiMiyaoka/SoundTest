@@ -2,7 +2,7 @@
 
 Webでの音のテストのためのサンプルです。
 
-曲はMP3 フリー素材で検索して出てきた [http://www.hmix.net/](フリーBGM・音楽素材 H/MIX GALLERY) の新着にいた2曲を使わせてもらいました。
+曲はMP3 フリー素材で検索して出てきた [フリーBGM・音楽素材 H/MIX GALLERY](http://www.hmix.net/) の新着にいた2曲を使わせてもらいました。
 
 http://www.hmix.net/music_gallery/music_top.htm
 
