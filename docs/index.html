@@ -10,35 +10,38 @@
 const files = [ './sound/n135.mp3', './sound/n136.mp3' ];
 function TestHowler( id )
 {
-	var sound = null;
+	var sound = [];
 	var count = 0;
 	document.getElementById( id + '_start' ).addEventListener( 'click', () =>
 	{
-		if ( !sound )
+		if ( sound.length )
 		{
-			sound = new Howl( {
-				src: files,
-				//autoplay: true,
-				loop: true,
-				volume: 0.5,
-				onend: function() {
-					console.log('Finished!');
-				},
+			files.forEach( ( file ) =>
+			{
+				sound.push( new Howl( {
+					src: file,
+					//autoplay: true,
+					loop: true,
+					volume: 0.5,
+					onend: function() {
+						console.log('Finished!');
+					},
+				} ) );
 			} );
 		}
-		sound.play( count );
+		sound[ count ].play();
 	}, false );
 	document.getElementById( id + '_stop' ).addEventListener( 'click', () =>
 	{
-		if ( !sound ) { return; }
-		sound.stop();
+		if ( sound.length )
+		sound[ count ].stop();
 	}, false );
 	document.getElementById( id + '_next' ).addEventListener( 'click', () =>
 	{
-		if ( !sound ) { return; }
+		if ( sound.length )
+		sound[ count ].stop();
 		count = (count + 1) % files.length;
-		sound.stop();
-		sound.play( count );
+		sound[ count ].play();
 	}, false );
 }
 document.addEventListener( 'DOMContentLoaded', () =>
