@@ -7,17 +7,24 @@ class Diva
 		this.files = {};
 	}
 
-	public add( ...files: (string | { file: string, loop: true })[] )
+	private _add( file: string, key?: string, )
+	{
+		if ( !key ) { key = file; }
+		if ( this.files[ key ] && this.files[ key ].src === file ) { return this.files[ key ]; }
+		this.files[ key ] = new Audio( file );
+		return new Audio( file );
+	}
+
+	public add( ...files: (string | { file: string, name?: string, loop?: true })[] )
 	{
 		files.forEach( ( file ) =>
 		{
 			if ( typeof file === 'string' )
 			{
-				this.files[ file ] = new Audio( file );
+				this._add( file );
 			} else
 			{
-				this.files[ file.file ] = new Audio( file.file );
-				this.files[ file.file ].loop = !!file.loop;
+				this._add( file.file, file.name ).loop = !!file.loop;
 			}
 		} );
 		return this;

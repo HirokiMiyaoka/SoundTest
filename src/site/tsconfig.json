@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"outFile": "../../docs/app.js",
 		"module": "amd",
-		"target": "es2015",
+		"target": "es5",
 		"moduleResolution": "node",
 		"strictNullChecks": true,
 		"noImplicitAny": true,

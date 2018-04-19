@@ -14,3 +14,5 @@ http://www.hmix.net/music_gallery/music_top.htm
 ## howler.js
 
 https://github.com/goldfire/howler.js
+
+やりたいことがやれないので自分で作ることにした。南無……
