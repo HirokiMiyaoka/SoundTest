@@ -8,31 +8,42 @@
 	<script type="text/javascript" src="./howler.min.js"></script>
 	<script type="text/javascript">
 const files = [ './sound/n135.mp3', './sound/n136.mp3' ];
-function TestHowler()
+function TestHowler( id )
 {
-	var sound = new Howl({
-		src: files,
-		autoplay: true,
-		loop: true,
-		volume: 0.5,
-		onend: function() {
-			console.log('Finished!');
-		},
-	} );
+	var sound = null;
+	document.getElementById( id + '_start' ).addEventListener( 'click', () =>
+	{
+		if ( !sound )
+		{
+			sound = new Howl( {
+				src: files,
+				autoplay: true,
+				//loop: true,
+				volume: 0.5,
+				onend: function() {
+					console.log('Finished!');
+				},
+			} );
+		}
+		sound.play();
+	}, false );
+	document.getElementById( id + '_stop' ).addEventListener( 'click', () =>
+	{
+		if ( !sound ) { return; }
+		sound.stop();
+	}, false );
 }
 document.addEventListener( 'DOMContentLoaded', () =>
 {
-	document.getElementById( 'howler_start' ).addEventListener( 'click', () =>
-	{
-		TestHowler();
-	}, false );
+	TestHowler('howler');
 } );
 	</script>
 </head>
 <body>
 	<section>
 		<h2>howler.js</h2>
-		<button id="howler_start">Test</button>
+		<button id="howler_start">Stop</button>
+		<button id="howler_stop">Stop</button>
 	</section>
 </body>
 </html>
