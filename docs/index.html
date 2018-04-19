@@ -14,7 +14,7 @@ function TestHowler( id )
 	var count = 0;
 	document.getElementById( id + '_start' ).addEventListener( 'click', () =>
 	{
-		if ( sound.length )
+		if ( !sound.length )
 		{
 			files.forEach( ( file ) =>
 			{
@@ -33,14 +33,14 @@ function TestHowler( id )
 	}, false );
 	document.getElementById( id + '_stop' ).addEventListener( 'click', () =>
 	{
-		if ( sound.length )
+		if ( !sound.length ) { return; }
 		sound[ count ].stop();
 	}, false );
 	document.getElementById( id + '_next' ).addEventListener( 'click', () =>
 	{
-		if ( sound.length )
+		if ( !sound.length ) { return; }
 		sound[ count ].stop();
-		count = (count + 1) % files.length;
+		count = (count + 1) % sound.length;
 		sound[ count ].play();
 	}, false );
 }
