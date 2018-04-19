@@ -5,15 +5,34 @@
 	<title>SoundTest</title>
 	<meta name="description" content="">
 	<script type="text/javascript" src="./app.js"></script>
+	<script type="text/javascript" src="./howler.min.js"></script>
 	<script type="text/javascript">
+const files = [ './sound/n135.mp3', './sound/n136.mp3' ];
+function TestHowler()
+{
+	var sound = new Howl({
+		src: files,
+		autoplay: true,
+		loop: true,
+		volume: 0.5,
+		onend: function() {
+			console.log('Finished!');
+		},
+	} );
+}
 document.addEventListener( 'DOMContentLoaded', () =>
 {
-	const tmp = new Tmp();
-	tmp.renderTemplate(document.getElementById('contnts'));
+	document.getElementById( 'howler_start' ).addEventListener( 'click', () =>
+	{
+		TestHowler();
+	}, false );
 } );
 	</script>
 </head>
 <body>
-	
+	<section>
+		<h2>howler.js</h2>
+		<button id="howler_start"></button>
+	</section>
 </body>
 </html>
