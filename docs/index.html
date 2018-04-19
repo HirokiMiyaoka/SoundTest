@@ -11,6 +11,7 @@ const files = [ './sound/n135.mp3', './sound/n136.mp3' ];
 function TestHowler( id )
 {
 	var sound = null;
+	var count = 0;
 	document.getElementById( id + '_start' ).addEventListener( 'click', () =>
 	{
 		if ( !sound )
@@ -25,12 +26,19 @@ function TestHowler( id )
 				},
 			} );
 		}
-		sound.play();
+		sound.play( count );
 	}, false );
 	document.getElementById( id + '_stop' ).addEventListener( 'click', () =>
 	{
 		if ( !sound ) { return; }
 		sound.stop();
+	}, false );
+	document.getElementById( id + '_next' ).addEventListener( 'click', () =>
+	{
+		if ( !sound ) { return; }
+		count = (count + 1) % files.length;
+		sound.stop();
+		sound.play( count );
 	}, false );
 }
 document.addEventListener( 'DOMContentLoaded', () =>
@@ -42,8 +50,9 @@ document.addEventListener( 'DOMContentLoaded', () =>
 <body>
 	<section>
 		<h2>howler.js</h2>
-		<button id="howler_start">Stop</button>
+		<button id="howler_start">Start</button>
 		<button id="howler_stop">Stop</button>
+		<button id="howler_next">Next</button>
 	</section>
 </body>
 </html>
